@@ -1,0 +1,48 @@
+@startuml
+title Sequenzdiagramm: Ablauf von findPath (Pfadberechnung)
+
+actor Benutzer
+participant "UI / App" as UI
+participant "PathService" as Service
+participant "Graph (Transform)" as Graph
+participant "PathFinder (findPath)" as PF
+participant "Viewer" as Viewer
+
+== Use Case: Pfad berechnen ==
+Benutzer -> UI : wähle Start- und Zielknoten
+UI -> Service : computePath(startId, endId)
+Service -> Graph : fromRows(nodeRows, edgeRows)
+Graph --> Service : Graph Objekt
+Service -> PF : findPath(graph, startNode, endNode)
+
+note over PF
+  findPath (intern):
+  - Initialisiere alle Distanzen
+  - Setze Start.dist = 0, füge Start in toProcess
+end note
+
+PF -> PF : initialisiere Distanzen
+loop solange toProcess nicht leer
+  PF -> PF : findNearestNode(toProcess)
+  PF -> PF : entferne currentNode aus toProcess
+  PF -> PF : findNeighbors(currentNode)
+  PF -> PF : findAllEdgesFromNode(currentNode, neighbors)
+  loop für jeden Nachbarn nb
+    PF -> PF : berechne newDist = cur.dist + weight
+    alt nb.dist undefined oder newDist < nb.dist
+      PF -> PF : nb.dist = newDist; nb.backwardsNode = currentNode
+      PF -> PF : füge nb zu toProcess hinzu
+    end
+  end
+end
+
+note right of PF
+  Nach Abschluss: rekonstruiere Pfad mittels backwardsNode
+end note
+
+PF --> Service : Pfad (Liste von Nodes)
+Service --> UI : Pfad (gegebenenfalls in Start→Ziel Reihenfolge)
+UI -> Viewer : render(path)
+Viewer --> Benutzer : visualisiere Route
+
+@enduml

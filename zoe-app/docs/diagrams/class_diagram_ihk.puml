@@ -1,0 +1,90 @@
+@startuml
+title Klassendiagramm
+
+' Klassen - Infrastruktur
+class DBAdapter <<infrastructure>> {
+  - pool: Pool
+  + getNodes(): any[]
+  + getEdges(): any[]
+  + searchRoomsByPrefix(prefix, limit): any[]
+  + getEvents(limit): any[]
+  + closePool(): void
+}
+
+class MainProcess <<infrastructure>> {
+  + registerIPCHandlers(): void
+  + startApp(): void
+}
+
+class PreloadAPI <<infrastructure>> {
+  + exposeElectronAPI(): void
+  + showVirtualKeyboard(): Promise<boolean>
+  + hideVirtualKeyboard(): Promise<boolean>
+}
+
+' Klassen - Fachliche Domäne
+class NodeItem <<entity>> {
+  - id: string
+  - pos_x: string
+  - pos_y: string
+  - floor_id: string
+  - distFromStart: number
+  - backwardsNode: NodeItem
+}
+
+class EdgeItem <<entity>> {
+  - id: string
+  - start: string
+  - end: string
+  - weight: number
+}
+
+class Graph <<domain>> {
+  - nodeList: NodeItem[]
+  - edgeList: EdgeItem[]
+  + fromRows(nodeRows, edgeRows): Graph
+}
+
+class PathFinder <<domain>> {
+  + findPath(graph, start, end): NodeItem[]
+  - findNeighbors(graph, node): NodeItem[]
+  - findAllEdgesFromNode(graph, node, neighbors): Map
+}
+
+' Klassen - Präsentation
+class AppComponent <<ui>> {
+  + render(): void
+  + setSelected(tabId): void
+}
+
+class TabsComponent <<ui>> {
+  + onSelectedTab(callback): void
+  + onSelectedRoom(callback): void
+}
+
+class ViewerComponent <<ui>> {
+  + renderSVG(floorId): void
+  + renderPath(path): void
+}
+
+class CalendarComponent <<ui>> {
+  + renderEvents(events): void
+}
+
+' Assoziationen / Beziehungen
+DBAdapter "1" o-- "*" Graph : liefert Rohdaten
+MainProcess "1" --> "1" DBAdapter : nutzt
+MainProcess "1" --> "1" PreloadAPI : registriert IPC
+PreloadAPI "1" --> "1" AppComponent : exponiert API
+AppComponent "1" --> "1" TabsComponent : verwaltet
+AppComponent "1" --> "1" ViewerComponent : steuert
+AppComponent "1" --> "1" CalendarComponent : steuert
+AppComponent "1" --> "1" PathFinder : fordert Pfad an
+PathFinder "1" ..> "1" Graph : liest
+PathFinder "1" ..> "*" EdgeItem : nutzt
+
+' Multiplicity / Kardinalitäten
+Graph "1" o-- "*" NodeItem
+Graph "1" o-- "*" EdgeItem
+
+@enduml

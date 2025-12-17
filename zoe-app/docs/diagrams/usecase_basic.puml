@@ -1,0 +1,37 @@
+@startuml
+title Use-Case: Grundfunktionen der Anwendung
+
+actor Benutzer as User
+actor SystemAdmin as Admin
+
+package "Anwendung" {
+  usecase UC_Search as "Raum suchen"
+  usecase UC_ViewPlan as "Grundriss anzeigen"
+  usecase UC_CalcRoute as "Route berechnen"
+  usecase UC_ViewEvents as "Termine anzeigen"
+  usecase UC_Keyboard as "Virtuelle Tastatur zeigen/verborgen"
+  usecase UC_Config as "Anwendung starten / konfigurieren"
+}
+
+User --> UC_Search
+User --> UC_ViewPlan
+User --> UC_CalcRoute
+User --> UC_ViewEvents
+User --> UC_Keyboard
+
+Admin --> UC_Config
+
+UC_CalcRoute .> UC_ViewPlan : <<include>>
+UC_Search .> UC_ViewPlan : <<include>>
+
+note bottom
+  Beschreibung:
+  - "Raum suchen": Suche nach Raumname/Präfix (DB‑Abfrage)
+  - "Grundriss anzeigen": Lade SVG für Stockwerk
+  - "Route berechnen": Pfadberechnung mittels Graph/PathFinder
+  - "Termine anzeigen": Lade anstehende Events aus DB
+  - "Virtuelle Tastatur": Betriebssystemaufruf via IPC
+  - "Anwendung starten / konfigurieren": Main‑Process / DB‑Adapter
+end note
+
+@enduml

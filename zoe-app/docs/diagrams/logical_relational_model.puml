@@ -1,0 +1,59 @@
+@startuml
+' Logisches relationales Datenmodell (vereinfachte ER‑Notation)
+' PK wird mit * markiert, FK mit <>
+
+entity "t_floors" as t_floors {
+  * floor_id : INT
+    name : VARCHAR(5)
+    map_path : VARCHAR(45)
+}
+
+entity "t_rooms" as t_rooms {
+  * room_id : INT
+    name : VARCHAR(50)
+    description : VARCHAR(50)
+    <> f_floor_id : INT
+}
+
+entity "t_nodes" as t_nodes {
+  * node_id : INT
+    pos_x : DECIMAL(10,0)
+    pos_y : DECIMAL(10,0)
+    <> f_floor_id : INT
+    f_room_id : INT
+}
+
+entity "t_edges" as t_edges {
+  * edge_id : INT
+    <> f_start_node : INT
+    <> f_end_node : INT
+    weight : INT
+}
+
+entity "t_events" as t_events {
+  * event_id : INT
+    title : VARCHAR(50)
+    description : VARCHAR(255)
+    event_start : DATETIME
+    event_end : DATETIME
+    <> f_room_id : INT
+}
+
+' Beziehungen / Kardinalitäten (vereinfachte Darstellung)
+t_floors ||--o{ t_rooms : "has"
+t_floors ||--o{ t_nodes : "has"
+t_rooms ||--o{ t_nodes : "contains (optional)"
+t_nodes ||--o{ t_edges : "connects"
+t_rooms ||--o{ t_events : "hosts"
+
+note right of t_nodes
+  f_room_id ist optional; in der ursprünglichen
+  DB‑Dump kann es nicht als FK deklariert gewesen sein.
+end note
+
+note left of t_edges
+  Kanten referenzieren Start- und Endknoten;
+  übliche Löschregel: ON DELETE CASCADE
+end note
+
+@enduml

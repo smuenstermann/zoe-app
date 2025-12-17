@@ -1,0 +1,100 @@
+.tabs-container, .search-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* center items inside the inner container horizontally */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ev-c-black);
+  width: 100%;
+}
+
+input[type=text]{
+  border: none;
+  outline: none;
+  background-color: var(--ev-c-white);
+  color: var(--ev-c-text-1);
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  width: 30%;
+  align-self: center;
+  color: var(--ev-c-black);
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+input[type=text]:focus {
+  width: 60%;
+}
+
+/* visual feedback for invalid search terms */
+.invalid {
+  box-shadow: 0 0 0 4px rgba(220, 50, 50, 0.18);
+  border-radius: 6px;
+}
+
+.search-suggestions {
+  position: absolute;
+  z-index: 10;
+  /* place right below the input container */
+  top: calc(100% + 6px);
+  background: var(--ev-c-white);
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  width: 60%;
+  max-width: 90vw;
+  overflow-y: scroll;
+  max-height: 15vh;
+}
+
+/* wrapper around the input so suggestions align to input width */
+.search-input-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.tab-items {
+  width: 100%;
+  height: fit-content;
+  padding-block: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-around;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ev-c-text-1);
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+.nav-items button:hover {
+  border-color: var(--ev-button-alt-hover-border);
+  color: var(--ev-button-alt-hover-text);
+  background-color: var(--ev-button-alt-hover-bg);
+}
+
+.search-container button {
+  padding: 0 10px;
+  line-height: 32px;
+  font-size: 14px;
+}

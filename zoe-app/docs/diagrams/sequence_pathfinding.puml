@@ -1,0 +1,47 @@
+@startuml
+title Sequenzdiagramm: Pfadberechnung (fachlich)
+
+actor Benutzer
+participant "Renderer (UI)" as UI
+participant "Preload / electronAPI" as Preload
+participant "Main (IPC Handler)" as Main
+participant "DB (Datenquelle)" as DB
+participant "Graph-Modul (Transform)" as Graph
+participant "PathFinder (Algorithmus)" as PF
+participant "Viewer (Visualisierung)" as Viewer
+
+== Anfrage starten ==
+Benutzer -> UI : wähle Start- und Zielknoten
+UI -> Preload : ipcInvoke('db/getNodes')
+Preload -> Main : ipcInvoke('db/getNodes')
+Main -> DB : SELECT node rows
+DB --> Main : node rows
+Main --> Preload : node rows
+Preload --> UI : node rows
+
+UI -> Preload : ipcInvoke('db/getEdges')
+Preload -> Main : ipcInvoke('db/getEdges')
+Main -> DB : SELECT edge rows
+DB --> Main : edge rows
+Main --> Preload : edge rows
+Preload --> UI : edge rows
+
+== Datenaufbereitung ==
+UI -> Graph : transform(nodeRows, edgeRows)
+Graph --> UI : validiertes Graph-Objekt
+
+== Pfadberechnung ==
+UI -> PF : findShortestPath(graph, startId, endId)
+PF -> PF : initialisiere Distanzen
+PF -> PF : iteriere: nächsterKnoten, relaxiere Nachbarn
+alt Ziel erreichbar
+  PF --> UI : Pfad (Liste von NodeIds)
+  UI -> Viewer : render(path)
+else Ziel nicht erreichbar
+  PF --> UI : Fehler: NotReachable
+  UI -> Benutzer : Fehlermeldung anzeigen
+end
+
+note over PF, Graph: PF liest Graph-Struktur; Graph ist unverändert
+
+@enduml

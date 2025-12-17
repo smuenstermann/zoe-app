@@ -1,0 +1,73 @@
+@startuml
+title ER-Diagramm: Datenbank `terminal`
+
+' Entities
+entity t_floors {
+  * floor_id : INT <<PK>>
+  --
+  name : VARCHAR
+  map_path : VARCHAR
+}
+
+entity t_rooms {
+  * room_id : INT <<PK>>
+  --
+  name : VARCHAR
+  description : VARCHAR
+  f_floor_id : INT <<FK>>
+}
+
+entity t_nodes {
+  * node_id : INT <<PK>>
+  --
+  pos_x : DECIMAL
+  pos_y : DECIMAL
+  f_floor_id : INT <<FK>>
+  f_room_id : INT
+}
+
+entity t_edges {
+  * edge_id : INT <<PK>>
+  --
+  f_start_node : INT <<FK>>
+  f_end_node : INT <<FK>>
+  weight : INT
+}
+
+entity t_events {
+  * event_id : INT <<PK>>
+  --
+  title : VARCHAR
+  description : VARCHAR
+  event_start : DATETIME
+  event_end : DATETIME
+  f_room_id : INT <<FK>>
+}
+
+' Relationships / Cardinalities
+t_floors ||--o{ t_rooms : "has"
+t_floors ||--o{ t_nodes : "contains"
+
+' t_nodes <-> t_edges via start/end (edges reference nodes)
+t_nodes ||--o{ t_edges : "start_node (f_start_node)"
+t_nodes ||--o{ t_edges : "end_node (f_end_node)"
+
+' rooms relation
+t_rooms ||--o{ t_events : "hosted_in (f_room_id)"
+
+note right of t_nodes
+  Hinweis: `f_room_id` in `t_nodes` ist kein deklarierter
+  FOREIGN KEY im Dump, verweist aber semantisch ggf. auf `t_rooms`.
+end note
+
+note bottom
+  Quelle: `resources/terminal_dump2.sql` (Auszug)
+  - Fremdschlüssel: t_edges.f_start_node -> t_nodes.node_id
+                 t_edges.f_end_node   -> t_nodes.node_id
+                 t_nodes.f_floor_id   -> t_floors.floor_id
+                 t_rooms.f_floor_id   -> t_floors.floor_id
+                 t_events.f_room_id   -> t_rooms.room_id
+  - Manche Felder sind optional (NULL möglich), z.B. t_nodes.f_room_id
+end note
+
+@enduml

@@ -1,0 +1,64 @@
+@startuml
+title Komponentendiagramm: Systemmodule (fachlich)
+
+package "Infrastruktur / Plattform" {
+  [DB-Adapter\n(src/main/db.ts)] as DB
+  [Main-Prozess\n(src/main/index.ts)] as Main
+  [Preload / IPC\n(src/preload/index.ts)] as Preload
+}
+
+package "Fachliche Logik" {
+  [Graph-Modell\n(NodeItem, EdgeItem, Graph)] as GraphModel
+  [PathFinder\n(src/renderer/src/scripts/dijkstra.ts)] as PathFinder
+}
+
+package "Präsentation / UI (Renderer)" {
+  [App\n(src/renderer/src/App.tsx)] as App
+  [Tabs\n(src/renderer/src/components/Tabs.tsx)] as Tabs
+  [Viewer\n(src/renderer/src/components/Viewer.tsx)] as Viewer
+  [Calendar\n(src/renderer/src/components/Calendar.tsx)] as Calendar
+  artifact Assets
+}
+
+package "Tests & Tools" {
+  [Unit-Tests\n(tests/dijkstra.test.ts)] as Tests
+}
+
+' Fachliche Schnittstellen (beschriftet)
+DB -down-> Main : SQL-Queries
+Main --> Preload : registriert IPC-Handler
+Preload --> App : sichere API (electronAPI)
+
+App --> Tabs : Steuert / empfängt Auswahl
+Tabs --> Preload : ipcInvoke('db/searchRooms')
+Tabs --> Preload : ipcInvoke('db/getNodes')
+Tabs --> Preload : ipcInvoke('db/getEdges')
+Viewer --> Assets : lädt SVG-Dateien
+
+App --> PathFinder : requestPath(startId, endId)
+PathFinder --> GraphModel : readGraph(nodeList, edgeList)
+GraphModel --> Preload : optional: transform raw rows
+Preload --> Main : ipcInvoke('db/getNodes' / 'db/getEdges')
+Main --> DB : führt Queries aus
+
+Tests --> PathFinder : validiert Algorithmen
+
+note left
+Fachliche Kernlogik (PathFinder)
+  - Initialisierung der Distanzen
+  - Nachbarermittlung
+  - Relaxation & Back-Pointers
+  - Pfad-Rekonstruktion
+end note
+
+note right
+DB-Adapter kapselt typische Methoden:
+  getNodes(), getEdges(), searchRoomsByPrefix(), getEvents()
+end note
+
+legend
+  Dateiangaben in Klammern zeigen Implementierungsdateien
+  Komponenten sind nach fachlichem Verantwortungsbereich gruppiert
+endlegend
+
+@enduml

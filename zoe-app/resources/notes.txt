@@ -1,0 +1,59 @@
+startNode: Node
+EndNode: Node
+Graph: 
+	Nodes (Knoten)
+	Edges (Kante)
+
+Node:
+	distFromStart (abstand)
+	backwardsNode (herkunft)
+	
+toProcess (zuVerarbeiten): NodeList
+	
+path (weg): NodeListe
+
+pathLength (wegLänge): int
+
+currentNode (minKnoten): Node
+
+
+ Dieses Verfahren bildet die Grundlage des Algorithmus von Dijkstra:
+
+ALGORITHMUS # von Dijkstra
+Übergabedaten: Graph, startKnoten, zielKnoten
+# Vorbereitung des Graphen
+für alle knoten des Graphen:
+    setze abstand auf 'u'
+    setze herkunft auf None
+setze abstand von startKnoten.abstand auf 0
+füge startKnoten in eine Liste zuVerarbeiten ein
+# Verarbeitung der Knoten
+SOLANGE die Liste zuVerarbeiten nicht leer ist:
+    bestimme einen Knoten minKnoten aus zuVerarbeiten mit minimalem Abstand
+    entferne minKnoten aus zuVerarbeiten
+
+    
+    für alle nachbarKnoten von minKnoten:
+-->     gewicht = Gewicht der Kante von minKnoten zu nachbarKnoten
+        neuerAbstand = (abstand von minKnoten) + gewicht
+        WENN abstand von nachbarKnoten == 'u':
+            füge nachbarKnoten in die Liste zuVerarbeiten ein (z.B. am Listenende)
+            setze abstand von nachbarKnoten auf neuerAbstand
+            setze herkunft von nachbarKnoten auf minKnoten
+        SONST:
+            WENN nachbarKnoten in zuVerarbeiten liegt:
+                WENN abstand von nachbarKnoten > neuerAbstand:
+                    setze abstand von nachbarKnoten auf neuerAbstand
+                    setze herkunft von nachbarKnoten auf minKnoten
+weglaenge = abstand von zielKnoten
+# Erzeugung des Weges zum zielKnoten
+weg = []
+knoten = zielKnoten    
+SOLANGE knoten != startKnoten und herkunft von knoten != None:
+    weg = [(herkunft von knoten, knoten)] + weg
+    knoten = herkunft von knoten
+Rückgabedaten: (weg, weglaenge)
+
+
+
+TRYCATCH FÜR PROMISE NODEITEM BLABLA

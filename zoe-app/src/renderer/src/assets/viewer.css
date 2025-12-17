@@ -1,0 +1,30 @@
+.display-files {
+  width: 100%;
+  /* Allow the element to shrink inside grid/flex parents and not force parent's height */
+  min-height: 0;
+  max-height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* let the display area take available space but not force parents to grow */
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.svg {
+  /* Let the SVG scale by its intrinsic aspect ratio while staying within the container.
+     Avoid forcing a 100% height which can make the parent expand to the SVG's intrinsic size. */
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+label {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ev-c-text-4);
+  text-align: center;
+}
