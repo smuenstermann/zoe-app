@@ -11,34 +11,27 @@ export default function Viewer({ selectedId, selectedRoom }: Props) {
   const level = (() => {
     switch (selectedId) {
       case 'building': return 'Gebäude';
-      case 'eg': return 'Erdgeschoss';
-      case 'og1': return '1. Obergeschoss';
-      case 'og2': return '2. Obergeschoss';
-      case 'og3': return '3. Obergeschoss';
-      case 'og4': return '4. Obergeschoss';
+      case '0eg': return 'Erdgeschoss';
+      case '1og': return '1. Obergeschoss';
+      case '2og': return '2. Obergeschoss';
+      case '3og': return '3. Obergeschoss';
+      case '4og': return '4. Obergeschoss';
       default: return '';
     }
   })();
 
   const roomName = (() => {
-    return selectedRoom ? (" - " + selectedRoom) : ' - ?'
+    return selectedRoom ? selectedRoom : '?'
   })();
 
-  const src = (() => {
-    try {
-      // Vite: new URL resolves in both dev and production bundles
-      return new URL(`../assets/floor-plans/${selectedId}.svg`, import.meta.url).href
-    } catch {
-      return undefined
-    }
-  })();
-  
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
-      <label id='room'>{level}{roomName}</label>
+      <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: '8px 16px', borderBottom: '1px solid var(--ev-c-border-1)'}}>
+        <label id='level'>{level}</label>
+        <label id='room'>Raum: {roomName}</label>
+      </div>
       <div className='display-files'>
-{/*       {src ? <img className='svg' src={src} alt={selectedId} /> : <div>Keine Pläne vorhanden</div>}
- */}      <PathFinder />
+        <PathFinder selectedId={selectedId} selectedRoom={selectedRoom} />
       </div>
     </div>
   )

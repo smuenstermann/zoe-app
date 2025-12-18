@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 
-export default function Svg() {
+export default function Svg1og() {
     return (
         <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <svg id="floorplan" viewBox="0 0 800 780" preserveAspectRatio="xMidYMid meet" width="100%" height="100%" aria-label="Grundriss 2. Obergeschoss">

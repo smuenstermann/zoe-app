@@ -11,6 +11,7 @@ type Props = {
 }
 
 export default function Tabs({ onSelectedTab, onSelectedRoom }: Props) {
+
   // stable handler so children don't recreate callbacks on every render
   const handleTabClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>(e => {
     const tabId = (e.currentTarget as HTMLButtonElement).id
@@ -19,6 +20,7 @@ export default function Tabs({ onSelectedTab, onSelectedRoom }: Props) {
       window.electron.ipcRenderer.send('tab-clicked', tabId)
     }
     onSelectedTab?.(tabId)
+    onSelectedRoom?.(" ")
   }, [onSelectedTab])
 
   const [text, setText] = useState('')

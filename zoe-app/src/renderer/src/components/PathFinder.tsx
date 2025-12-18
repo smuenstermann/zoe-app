@@ -1,14 +1,23 @@
 import React, { useCallback, useEffect } from 'react'
 import findPath from '@renderer/scripts/dijkstra'
 import SVG2og from './SVG2og'
+import SVGeg from './SVGeg'
+import SVG1og from './SVG1og'
+import SVG3og from './SVG3og'
+import SVG4og from './SVG4og'
 
-// implement import of floor id so we know which SVG to display
+// Props: accept both `selected` (legacy) and `selectedId` variants plus selectedRoom
 type Props = {
-  selectedId?: string
-  selectedRoom?: string
+    selected?: string
+    selectedId?: string
+    selectedRoom?: string
 }
 
-export default function Svg() {
+export default function Svg({ selected, selectedId, selectedRoom }: Props) {
+
+    // derive canonical floor id from props (order: selectedId, selected, fallback '2og')
+    const floorId = selectedId ?? selected ?? '2og'
+    console.log("Rendering floorId: ", floorId)
 
     function switchFloor(floorId: string){
 
@@ -106,6 +115,12 @@ export default function Svg() {
     }, [handleRoomClick]);
 
     return (
-        <SVG2og />
-  )
+        <>
+            {floorId === '0eg' && <SVGeg />}
+            {floorId === '1og' && <SVG1og />}
+            {floorId === '2og' && <SVG2og />}
+            {floorId === '3og' && <SVG3og />}
+            {floorId === '4og' && <SVG4og />}
+        </>
+    )
 }
