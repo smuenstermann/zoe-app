@@ -224,7 +224,10 @@ export default async function findPath(pathStart: string, pathEndRoom: string): 
   }
 
   pathLength = endNode.distFromStart!
-  console.log("Path length: ", pathLength)
+  if (pathLength === undefined)  {
+    console.log("No path found for selected room.")
+  } else {
+  console.log("Path length: ", pathLength)}
 
   // path from endNode using backwardsNode
   var knoten: NodeItem | undefined = endNode
