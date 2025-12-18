@@ -11,10 +11,11 @@
 }
 
 .virtual-keyboard .close-button {
-    border: 1px solid black;
     color: black;
     background: var(--ev-c-bvg-bg);
-    font-size: 14px;
+    font-size: 24px;
+    font-weight: 600;
+    padding-inline: 14px;
 }
 
 .vk-header {
@@ -34,10 +35,12 @@
 
 .vk-key {
     min-width: 36px;
-    height: 36px;
+    height: 48px;
     border-radius: 6px;
+    font-weight: 600;
     background: var(--ev-c-bvg-bg);
     color: var(--ev-c-bvg-text-dark);
+    width: 48px;
 }
 
 .vk-bottom-row {
@@ -50,4 +53,9 @@
 .vk-bottom-row .vk-key { 
     padding: 6px 20px;
     border-radius: 6px;
+    width: fit-content;
+}
+
+#space {
+    line-height: 12px;
 }

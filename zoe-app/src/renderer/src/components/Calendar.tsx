@@ -86,7 +86,7 @@ export default function Calendar() {
           <div className='headings'>
             <p>Zeit</p>
             <p>Veranstaltung</p>
-            <p>Beschreibung</p>
+{/*             <p>Beschreibung</p> */}
             <p>Raum</p>
           </div>
 
@@ -107,7 +107,7 @@ export default function Calendar() {
                       {ev.time} Uhr
                     </p>
                     <p>{ev.title}</p>
-                    <p>{ev.description}</p>
+{/*                     <p>{ev.description}</p> */}
                     <p>{ev.room}</p>
                   </div>
                 ))

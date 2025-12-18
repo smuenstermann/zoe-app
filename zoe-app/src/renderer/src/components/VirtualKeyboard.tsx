@@ -12,7 +12,7 @@ const ROWS: string[][] = [
   ['1','2','3','4','5','6','7','8','9','0'],
   ['Q','W','E','R','T','Z','U','I','O','P','Ü'],
   ['A','S','D','F','G','H','J','K','L','Ö','Ä'],
-  ['Y','X','C','V','B','N','M',',','.','-']
+  ['Y','X','C','V','B','N','M']
 ]
 
 export default function VirtualKeyboard({ onKey, onEnter, onBackspace, onClose }: Props) {
@@ -33,9 +33,9 @@ export default function VirtualKeyboard({ onKey, onEnter, onBackspace, onClose }
       ))}
 
       <div className='vk-bottom-row'>
-        <button type="button" className="vk-key" onMouseDown={(e) => e.preventDefault()} onPointerDown={(e) => e.preventDefault()} onClick={() => onKey(' ')}>Space</button>
-        <button type="button" className="vk-key" onMouseDown={(e) => e.preventDefault()} onPointerDown={(e) => e.preventDefault()} onClick={() => onBackspace?.()}>⌫</button>
-        <button type="button" className="vk-key" onMouseDown={(e) => e.preventDefault()} onPointerDown={(e) => e.preventDefault()} onClick={() => onEnter?.()}>Enter</button>
+        <button type="button" className="vk-key" id='space' onMouseDown={(e) => e.preventDefault()} onPointerDown={(e) => e.preventDefault()} onClick={() => onKey(' ')}>⎵</button>
+        <button type="button" className="vk-key" id='backspace' onMouseDown={(e) => e.preventDefault()} onPointerDown={(e) => e.preventDefault()} onClick={() => onBackspace?.()}>⌫</button>
+        <button type="button" className="vk-key" id='enter' onMouseDown={(e) => e.preventDefault()} onPointerDown={(e) => e.preventDefault()} onClick={() => onEnter?.()}>↵</button>
       </div>
     </div>
   )

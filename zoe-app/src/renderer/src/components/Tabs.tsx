@@ -153,7 +153,7 @@ export default function Tabs({ onSelectedTab, onSelectedRoom }: Props) {
               }
             }}
             type="text"
-            placeholder="Suchen.."
+            placeholder="Suchen..."
             autoComplete="off"
             style={{background: 'var(--ev-c-text-3)'}}
           />

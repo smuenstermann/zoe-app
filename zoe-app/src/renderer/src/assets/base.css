@@ -94,4 +94,5 @@ body {
 
 ::-webkit-scrollbar {
   border-radius: 100px;
+  min-width: 20px;
 }

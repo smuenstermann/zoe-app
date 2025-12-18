@@ -23,8 +23,7 @@
 }
 
 label {
-  font-size: 24px;
-  font-weight: 700;
+  font-weight: bold;
   color: var(--ev-c-text-4);
   text-align: center;
 }

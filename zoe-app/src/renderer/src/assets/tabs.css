@@ -27,7 +27,7 @@ input[type=text]{
   outline: none;
   background-color: var(--ev-c-white);
   color: var(--ev-c-text-1);
-  padding: 8px 12px;
+  padding: 8px 20px;
   border-radius: 28px;
   font-size: 32px;
   width: 30%;
@@ -72,7 +72,7 @@ input[type=text]:focus {
 .tab-items {
   width: 100%;
   height: fit-content;
-  padding-block: 10px;
+  padding-block: 24px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -94,7 +94,5 @@ ul {
 }
 
 .search-container button {
-  padding: 0 10px;
-  line-height: 46px;
-  font-size: 32px;
+  padding: 4px 10px;
 }
