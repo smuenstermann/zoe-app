@@ -80,7 +80,7 @@ button:hover {
 .content-container {
   margin-top: 6vh;
   display: grid;
-  grid-template-rows: 1fr 10fr 8fr;
+  grid-template-rows: 1fr 16fr 8fr;
   min-height: 0;
   width: 90vw;
   flex: 1 1 auto;
@@ -101,7 +101,8 @@ button:hover {
   box-sizing: border-box;
   max-height: 100%;
   overflow: hidden;
-  background-color: var(--ev-c-bvg-bg);
+  background-color: #f0d722;
+  border: 6px solid var(--ev-c-bvg-bg);
   border-radius: 10px;
   padding: 2px 2px 20px 2px;
 }

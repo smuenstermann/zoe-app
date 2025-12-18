@@ -30,8 +30,9 @@ export default function Svg() {
         poly.setAttribute('id', 'route-line');
         poly.setAttribute('points', pts);
         poly.setAttribute('fill', 'none');
-        poly.setAttribute('stroke', 'red');
-        poly.setAttribute('strokeWidth', '8');
+        poly.setAttribute('stroke', '#f0d722');
+        poly.setAttribute('stroke-width', '10');
+        poly.setAttribute('stroke-dasharray', '1,26');
         poly.setAttribute('stroke-linecap', 'round');
         poly.setAttribute('stroke-linejoin', 'round');
         poly.setAttribute('pointer-events', 'none');
@@ -43,7 +44,11 @@ export default function Svg() {
         document.querySelectorAll<SVGCircleElement>('circle').forEach(c => {
             c.setAttribute('visibility', 'hidden');
         });
+        document.querySelectorAll<SVGRectElement>('#rooms rect').forEach(r => {
+            r.style.fill = '#fff6aeff';
+        });
         const room = e.currentTarget as SVGRectElement;
+        room.style.fill = '#f0d722';
         console.log(`Room ${room.id} clicked`);
         const path = await findPath("202", room.id);
         try{
@@ -73,21 +78,21 @@ export default function Svg() {
         };
     }, [handleRoomClick]);
 
-  return (
-    <div>
-      <svg id="floorplan" viewBox="0 0 800 900" preserveAspectRatio="xMidYMid meet" width="100%" height="100%" aria-label="Grundriss 2. Obergeschoss">
+    return (
+        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <svg id="floorplan" viewBox="0 0 800 780" preserveAspectRatio="xMidYMid meet" width="100%" height="100%" aria-label="Grundriss 2. Obergeschoss">
 
       <g id="walls">
             <polygon
             id="polygon2941"
             points="10.38,11 10.38,757 439.08,757 439,360 744.8,360 744.8,11 623.5,11 623.5,37.5 436.57,37.5 436.57,11 317.1,11 317.1,37.5 129.2,37.5 129.2,11&#10;"
-            fill="none"
+            fill="white"
             stroke-linejoin="round"
             stroke="black"
-            stroke-width="2" />
+            stroke-width="6" />
         </g> 
 
-        <g id="rooms" strokeWidth={1} stroke='#252525' fill='#f0d722'>
+        <g id="rooms" strokeWidth={2.5} stroke='#252525' fill='#fff6aeff'>
             <rect
                 id="2th3"
                 width="61.727619"
@@ -590,90 +595,90 @@ export default function Svg() {
                 y="11.495049" />
         </g>
         
-        <g id="labels" fontFamily="Arial" fontSize="12" fill="#252525" visibility="visible">
-            <text x="20" y="30">2th3</text>
-            <text x="20" y="60">K2032</text>
-            <text x="15" y="150">K2030</text>
-            <text x="70" y="150">K2031</text>
-            <text x="20" y="220">K2029</text>
-            <text x="20" y="360">2wc1</text>
-            <text x="60" y="360">2th1</text>
-            <text x="20" y="390">K2019</text>
-            <text x="70" y="330">K2t04</text>
-            <text x="95" y="330">K2t03</text>
-            <text x="20" y="425">K2018</text>
-            <text x="20" y="460">K2017</text>
-            <text x="20" y="520">K2016</text>
-            <text x="50" y="580">K2015</text>
-            <text x="15" y="580">K2014</text>
-            <text x="20" y="650">K2013</text>
-            <text x="20" y="720">K2012uh1</text>
-            <text x="35" y="750">2th2</text>
-            <text x="15" y="750">K2012uh2</text>
-            <text x="130" y="700">K2010</text>
-            <text x="130" y="740">K2011</text>
-            <text x="230" y="700">K2009</text>
-            <text x="260" y="750">K2008</text>
-            <text x="140" y="550">2dt1</text>
-            <text x="280" y="450">K2024</text>
-            <text x="230" y="450">K2025</text>
-            <text x="180" y="450">K2026</text>
-            <text x="130" y="450">K2027</text>
-            <text x="170" y="440">K2028</text>
-            <text x="130" y="350">K2020uh</text>
-            <text x="240" y="350">K2022ud</text>
-            <text x="130" y="270">K2033</text>
-            <text x="180" y="270">K2034</text>
-            <text x="230" y="270">K2035</text>
-            <text x="140" y="150">2dt2</text>
-            <text x="320" y="30">2th6</text>
-            <text x="390" y="30">K2t06</text>
-            <text x="350" y="80">K2038</text>
-            <text x="410" y="130">K2039</text>
-            <text x="340" y="130">K2040</text>
-            <text x="340" y="200">K2041</text>
-            <text x="340" y="270">K2042</text>
-            <text x="390" y="270">K2043</text>
-            <text x="450" y="150">2dt3</text>
-            <text x="440" y="260">K2044</text>
-            <text x="540" y="260">K2045</text>
-            <text x="560" y="260">K2046</text>
-            <text x="590" y="260">K2047</text>
-            <text x="690" y="30">K2t07</text>
-            <text x="650" y="80">K2048</text>
-            <text x="650" y="130">K2049</text>
-            <text x="650" y="200">K2050</text>
-            <text x="650" y="270">K2051</text>
-            <text x="630" y="350">2th7</text>
-            <text x="680" y="320">K2t08</text>
-            <text x="660" y="320">K2t09</text>
-            <text x="645" y="320">K2pm2</text>
-            <text x="570" y="340">K2053</text>
-            <text x="540" y="340">K2054</text>
-            <text x="440" y="340">K2055</text>
-            <text x="420" y="340">K2pm1</text>
-            <text x="400" y="340">K2kop1</text>
-            <text x="370" y="340">K2t11</text>
-            <text x="340" y="340">K2t12</text>
-            <text x="340" y="360">2th4</text>
-            <text x="400" y="360">K2fs1</text>
-            <text x="415" y="360">K2fs2</text>
-            <text x="435" y="360">0001</text>
-            <text x="340" y="400">K2001</text>
-            <text x="400" y="440">2la</text>
-            <text x="350" y="470">K2t01</text>
-            <text x="410" y="470">K2t02</text>
-            <text x="340" y="510">K2003</text>
-            <text x="410" y="590">K2004</text>
-            <text x="350" y="590">K2005</text>
-            <text x="340" y="650">K2006</text>
-            <text x="340" y="710">K2007ud1</text>
-            <text x="400" y="740">0002</text>
-            <text x="420" y="740">K2007ud2</text>
-            <text x="350" y="740">2th5</text>
-            <text x="725" y="340">2wc5</text>
-            <text x="705" y="340">wc</text>
-            <text x="630" y="30">2th8</text>
+        <g id="labels" fontFamily="Arial" fontSize="14" fill="#252525" visibility="visible">
+            <text id='2th3' x="20" y="30">Treppe</text>
+            <text id='k2032' x="20" y="60">K2032</text>
+            <text id='k2030' x="15" y="150">K2030</text>
+            <text id='k2031' x="70" y="150">K2031</text>
+            <text id='k2029' x="20" y="220">K2029</text>
+            <text id='2wc1' x="20" y="360">WC</text>
+            <text id='2th1' x="60" y="360">Treppe</text>
+            <text id='k2019' x="20" y="390">K2019</text>
+            <text id='k2t04' x="70" y="330">K2t04</text>
+            <text id='k2t03' x="95" y="330">K2t03</text>
+            <text id='k2018' x="20" y="425">K2018</text>
+            <text id='k2017' x="20" y="460">K2017</text>
+            <text id='k2016' x="20" y="520">K2016</text>
+            <text id='k2015' x="50" y="580">K2015</text>
+            <text id='k2014' x="15" y="580">K2014</text>
+            <text id='k2013' x="20" y="650">K2013</text>
+            <text id='k2012uh1' x="20" y="720">Umkleide H</text>
+            <text id='2th2' x="35" y="750">2th2</text>
+            <text id='k2012uh2' x="15" y="750">Umkleide H</text>
+            <text id='k2010' x="130" y="700">K2010</text>
+            <text id='k2011' x="130" y="740">K2011</text>
+            <text id='k2009' x="230" y="700">K2009</text>
+            <text id='k2008' x="260" y="750">K2008</text>
+            <text id='2dt1' x="140" y="550">Dachterrasse</text>
+            <text id='k2024' x="280" y="450">K2024</text>
+            <text id='k2025' x="230" y="450">K2025</text>
+            <text id='k2026' x="180" y="450">K2026</text>
+            <text id='k2027' x="130" y="450">K2027</text>
+            <text id='k2028' x="170" y="440">K2028</text>
+            <text id='k2020uh' x="130" y="350">Umkleide H</text>
+            <text id='k2022ud' x="240" y="350">Umkleide D</text>
+            <text id='k2033' x="130" y="270">K2033</text>
+            <text id='k2034' x="180" y="270">K2034</text>
+            <text id='k2035' x="230" y="270">K2035</text>
+            <text id='2dt2' x="140" y="150">Dachterrasse</text>
+            <text id='2th6' x="320" y="30">Treppe</text>
+            <text id='k2t06' x="390" y="30">K2t06</text>
+            <text id='k2038' x="350" y="80">K2038</text>
+            <text id='k2039' x="410" y="130">K2039</text>
+            <text id='k2040' x="340" y="130">K2040</text>
+            <text id='k2041' x="340" y="200">K2041</text>
+            <text id='k2042' x="340" y="270">K2042</text>
+            <text id='k2043' x="390" y="270">K2043</text>
+            <text id='2dt3' x="450" y="150">Dachterrasse</text>
+            <text id='k2044' x="440" y="260">K2044</text>
+            <text id='k2045' x="540" y="260">K2045</text>
+            <text id='k2046' x="560" y="260">K2046</text>
+            <text id='k2047' x="590" y="260">K2047</text>
+            <text id='k2t07' x="690" y="30">K2t07</text>
+            <text id='k2048' x="650" y="80">K2048</text>
+            <text id='k2049' x="650" y="130">K2049</text>
+            <text id='k2050' x="650" y="200">K2050</text>
+            <text id='k2051' x="650" y="270">K2051</text>
+            <text id='2th7' x="630" y="350">Treppe</text>
+            <text id='k2t08' x="680" y="320">K2t08</text>
+            <text id='k2t09' x="660" y="320">K2t09</text>
+            <text id='k2pm2' x="645" y="320">Putzm.</text>
+            <text id='k2053' x="570" y="340">K2053</text>
+            <text id='k2054' x="540" y="340">K2054</text>
+            <text id='k2055' x="440" y="340">K2055</text>
+            <text id='k2pm1' x="420" y="340">Putzm.</text>
+            <text id='k2kop1' x="400" y="340">Kopier</text>
+            <text id='k2t11' x="370" y="340">K2t11</text>
+            <text id='k2t12' x="340" y="340">K2t12</text>
+            <text id='2th4' x="340" y="360">Treppe</text>
+            <text id='k2fs1' x="400" y="360">Aufzug</text>
+            <text id='k2fs2' x="415" y="360">Aufzug</text>
+            <text id='0001' x="435" y="360">0001</text>
+            <text id='k2001' x="340" y="400">K2001</text>
+            <text id='2la' x="400" y="440">Aufzug</text>
+            <text id='k2t01' x="350" y="470">K2t01</text>
+            <text id='k2t02' x="410" y="470">K2t02</text>
+            <text id='k2003' x="340" y="510">K2003</text>
+            <text id='k2004' x="410" y="590">K2004</text>
+            <text id='k2005' x="350" y="590">K2005</text>
+            <text id='k2006' x="340" y="650">K2006</text>
+            <text id='k2007ud1' x="340" y="710">Umkleide</text>
+            <text id='0002' x="400" y="740">0002</text>
+            <text id='k2007ud2' x="420" y="740">Umkleide</text>
+            <text id='2th5' x="350" y="740">Treppe</text>
+            <text id='2wc5' x="725" y="340">WC</text>
+            <text id='wc' x="705" y="340">WC</text>
+            <text id='2th8' x="630" y="30">Treppe</text>
         </g>
 
         <g id="nodes" visibility="hidden">
