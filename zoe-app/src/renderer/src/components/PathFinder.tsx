@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import findPath, { getNodes, getEdges, drawPath } from '@renderer/scripts/dijkstra'
+import findPath from '@renderer/scripts/dijkstra'
 import SVG2og from './SVG2og'
 
 // implement import of floor id so we know which SVG to display
