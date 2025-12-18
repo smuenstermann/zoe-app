@@ -1,3 +1,7 @@
+.tabs-container {
+  gap: 28px;
+}
+
 .tabs-container, .search-form {
   display: flex;
   flex-direction: column;
@@ -72,7 +76,6 @@ input[type=text]:focus {
 .tab-items {
   width: 100%;
   height: fit-content;
-  padding-block: 24px;
   display: flex;
   flex-direction: row;
   align-items: center;
