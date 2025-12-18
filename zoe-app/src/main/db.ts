@@ -45,7 +45,7 @@ export async function getRoomByName(name: string) {
 export async function getNodeIdFromRoom(name: string) {
   const p = getPool()
   const [rows] = await p.query(`SELECT node_id from t_nodes 
-    join t_rooms on t_rooms.f_node_id = t_nodes.node_id
+    join t_rooms on t_rooms.room_id = t_nodes.f_room_id
     WHERE t_rooms.name = ? 
     LIMIT 1`,[name])
   const arr = rows as any[]

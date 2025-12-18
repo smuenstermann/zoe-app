@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import { getNodes, getEdges, drawPath } from '@renderer/scripts/dijkstra'
+import findPath, { getNodes, getEdges, drawPath } from '@renderer/scripts/dijkstra'
 
 // implement import of floor id so we know which nodes to fetch.
 type Props = {
@@ -9,15 +9,49 @@ type Props = {
 
 export default function Svg() {
 
-    useEffect(() => {
+    function drawSVGPath(path: any[]){ {
 
-        /* pathCalc(n); */
-    }, []);
+        if (!path || path.length === 0) return;
 
-    const handleRoomClick = useCallback<React.MouseEventHandler<SVGRectElement>>(e => {
+        const svg = document.getElementById('floorplan') as SVGSVGElement | null;
+        if (!svg) return;
+
+        const pts = path.map(n => {
+            return `${Number((n as any).pos_x)},${Number((n as any).pos_y)}`
+        }).join(' ')
+
+        console.log("SVG Points: ", pts)
+
+        const existing = svg.querySelector<SVGElement>('#route-line');
+        if (existing) existing.remove();
+        
+        const ns = 'http://www.w3.org/2000/svg';
+        const poly = document.createElementNS(ns, 'polyline');
+        poly.setAttribute('id', 'route-line');
+        poly.setAttribute('points', pts);
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', 'red');
+        poly.setAttribute('stroke-width', '8');
+        poly.setAttribute('stroke-linecap', 'round');
+        poly.setAttribute('stroke-linejoin', 'round');
+        poly.setAttribute('pointer-events', 'none');
+
+        svg.appendChild(poly);
+    }}
+
+    const handleRoomClick = useCallback<React.MouseEventHandler<SVGRectElement>>(async e => {
+        document.querySelectorAll<SVGCircleElement>('circle').forEach(c => {
+            c.setAttribute('visibility', 'hidden');
+        });
         const room = e.currentTarget as SVGRectElement;
         console.log(`Room ${room.id} clicked`);
-        drawPath(room.id);
+        const path = await findPath("202", room.id);
+        try{
+            console.log("Drawing path to: ", path[0])
+            drawSVGPath(path)
+        }
+        catch(err){console.log("Failed to draw path", err)}
+
     }, []);
 
     useEffect(() => {

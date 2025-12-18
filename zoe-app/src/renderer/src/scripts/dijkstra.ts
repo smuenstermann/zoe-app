@@ -1,3 +1,6 @@
+import { get } from "http"
+import path from "path"
+
   type NodeItem = {
     id: string
     pos_x: string
@@ -154,13 +157,22 @@ export function findAllEdgesFromNode(graph: any, node: NodeItem, neighbors: Node
         neighborEdges.set(e.start, e)
     }
   })
-
+  
   return neighborEdges
 }
 
-var pathEnd = 
+export async function findRoomNode(roomId: string): Promise<string | null>{ 
+  try {
+    const roomNodeRow = await (window as any).electron.ipcRenderer.invoke('db/getNodeIdFromRoom', String(roomId))
+    const nodeId = roomNodeRow && roomNodeRow.node_id ? String(roomNodeRow.node_id).trim() : null
+    return nodeId
+  } catch (err) {
+    console.log("Failed to get room node id", err)
+    return null
+  }
+}
 
-export default async function findPath(pathStart: NodeItem, pathEnd: NodeItem): Promise<NodeItem[]>{
+export default async function findPath(pathStart: string, pathEndRoom: string): Promise<NodeItem[]>{
 
   var toProcess: NodeItem[] = []
   var path: NodeItem[] = []
@@ -169,9 +181,16 @@ export default async function findPath(pathStart: NodeItem, pathEnd: NodeItem): 
   var neighbors: NodeItem[] = []
   var graph: Graph = await getGraph()
 
-  const startNode = graph.nodeList.find(n => n.id === pathStart.id)
-  const endNode = graph.nodeList.find(n => n.id === pathEnd.id)
-  if (!startNode || !endNode) return []
+  console.log("Finding path from Node: ", pathStart, " to Room: ", pathEndRoom)
+  const pathEndNodeId = await findRoomNode(pathEndRoom)
+
+  const startNode = graph.nodeList.find(n => String(n.id) === pathStart)
+  const endNode = graph.nodeList.find(n => n.id == pathEndNodeId)
+  if (!startNode || !endNode) {
+    console.log('Missing start/end node', { startNodeExists: !!startNode, endNodeExists: !!endNode})
+    return []
+  }
+  console.log("found end node: ", endNode.id)
 
   // initialize distances on start
   startNode.distFromStart = 0
@@ -214,13 +233,18 @@ export default async function findPath(pathStart: NodeItem, pathEnd: NodeItem): 
     path.push(knoten.backwardsNode!)
     knoten = knoten.backwardsNode
   }
-  console.log(path)
+  try {console.log("Path from: " + path[path.length -1].id + " to: " + path[0].id)
+    console.log("Full path: ", path)
+  }
+  catch(err){console.log("Failed to log path", err)}
 
   return path
 }
 
 export async function drawPath(_path: NodeItem[] | any): Promise<void> {
   // Placeholder: renderer-specific path drawing should be implemented in UI code
-
+    const path = await _path
+    try{console.log("Drawing path to: ", path[0])}
+    catch(err){console.log("Failed to draw path", err)}    
   return
 }
