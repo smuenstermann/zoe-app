@@ -7,7 +7,7 @@ import Viewer from './components/Viewer'
 import Dijkstra from './scripts/dijkstra'
 
 function App(): React.JSX.Element {
-  const [selected, setSelected] = React.useState<string>('eg');
+  const [selected, setSelected] = React.useState<string>('2og');
   const [selectedRoom, setSelectedRoom] = useState<string | undefined>(undefined);
 
   return (
