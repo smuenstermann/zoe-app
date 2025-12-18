@@ -14,6 +14,7 @@ body {
   background-size: cover;*/
   user-select: none;
   padding-bottom: 60px;
+  font-size: 32px;
   /* reserve space for the fixed header + nav so content isn't hidden behind them */
   padding-top: 60px;
   background-color: var(--ev-c-bvg-bg-2);
@@ -28,7 +29,7 @@ button {
   font-weight: 600;
   color: var(--ev-c-bvg-text-dark);
   white-space: nowrap;
-  border-radius: 20px;
+  border-radius: 28px;
   padding: 0 16px;
   line-height: 34px;
   font-size: 14px;
@@ -51,7 +52,6 @@ button:hover {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  font-size: 20px;
   font-weight: 700;
   color: var(--ev-c-bvg-text-dark);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -134,7 +134,7 @@ h2 {
 }
 
 .text {
-  font-size: 28px;
+  font-size: 32px;
   color: var(--ev-c-bvg-text-1);
   font-weight: 700;
   line-height: 32px;

@@ -81,8 +81,8 @@ import icon from '../../resources/icon.png?asset'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 2160/4,
-    height: 3840/4,
+    width: 2160,
+    height: 3840,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -92,7 +92,9 @@ function createWindow(): void {
     }
   })
 
-  mainWindow.setAlwaysOnTop(true, "normal");
+  //mainWindow.setAlwaysOnTop(true, "normal");
+
+  mainWindow.setFullScreen(true)
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()

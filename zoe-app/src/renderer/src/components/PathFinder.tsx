@@ -31,7 +31,7 @@ export default function Svg() {
         poly.setAttribute('points', pts);
         poly.setAttribute('fill', 'none');
         poly.setAttribute('stroke', 'red');
-        poly.setAttribute('stroke-width', '8');
+        poly.setAttribute('strokeWidth', '8');
         poly.setAttribute('stroke-linecap', 'round');
         poly.setAttribute('stroke-linejoin', 'round');
         poly.setAttribute('pointer-events', 'none');

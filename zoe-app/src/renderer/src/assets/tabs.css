@@ -28,8 +28,8 @@ input[type=text]{
   background-color: var(--ev-c-white);
   color: var(--ev-c-text-1);
   padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 14px;
+  border-radius: 28px;
+  font-size: 32px;
   width: 30%;
   align-self: center;
   color: var(--ev-c-black);
@@ -43,7 +43,7 @@ input[type=text]:focus {
 /* visual feedback for invalid search terms */
 .invalid {
   box-shadow: 0 0 0 4px rgba(220, 50, 50, 0.18);
-  border-radius: 6px;
+  border-radius: 12px;
 }
 
 .search-suggestions {
@@ -77,7 +77,7 @@ input[type=text]:focus {
   flex-direction: row;
   align-items: center;
   justify-content:space-around;
-  font-size: 18px;
+  font-size: 32px;
   font-weight: 600;
   color: var(--ev-c-text-1);
 }
@@ -95,6 +95,6 @@ ul {
 
 .search-container button {
   padding: 0 10px;
-  line-height: 32px;
-  font-size: 14px;
+  line-height: 46px;
+  font-size: 32px;
 }
