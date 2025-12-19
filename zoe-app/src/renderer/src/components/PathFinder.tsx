@@ -56,14 +56,14 @@ export default function Svg({ selected, selectedId, selectedRoom }: Props) {
     }}
 
     function markTargetRoom(roomId: string){ {
-        document.querySelectorAll<SVGCircleElement>('circle').forEach(c => {
-            c.setAttribute('visibility', 'hidden');
-        });
         document.querySelectorAll<SVGRectElement>('#rooms rect').forEach(r => {
             r.style.fill = '#fff6aeff';
         });
         document.querySelectorAll<SVGElement>('#labels text').forEach(t => {
             t.setAttribute('visibility', 'hidden');
+        });
+        document.querySelectorAll<SVGElement>('#route-line').forEach(t => {
+            t.remove();
         });
 
         const room = document.getElementById(roomId) as SVGRectElement | null;
@@ -87,11 +87,11 @@ export default function Svg({ selected, selectedId, selectedRoom }: Props) {
         const path = await findPath("202", room.id);
         try{
             console.log("Drawing path to: ", path[0])
+            markTargetRoom(room.id);
             drawSVGPath(path)
         }
         catch(err){console.log("Failed to draw path", err)}
 
-        markTargetRoom(room.id);
 
     }, []);
 
