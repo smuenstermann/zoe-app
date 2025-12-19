@@ -21,7 +21,6 @@ export default function Viewer({ selectedId, selectedRoom }: Props) {
   })();
 
   const roomName = (() => {
-    console.log("Selected Room in Viewer: ", selectedRoom);
     return selectedRoom&&(selectedRoom != ' ') ? ("Raum: " + selectedRoom) : ' '
   })();
 

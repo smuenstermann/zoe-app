@@ -243,11 +243,3 @@ export default async function findPath(pathStart: string, pathEndRoom: string): 
 
   return path
 }
-
-export async function drawPath(_path: NodeItem[] | any): Promise<void> {
-  // Placeholder: renderer-specific path drawing should be implemented in UI code
-    const path = await _path
-    try{console.log("Drawing path to: ", path[0])}
-    catch(err){console.log("Failed to draw path", err)}    
-  return
-}

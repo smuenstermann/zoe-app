@@ -112,15 +112,15 @@ export default function Svg({ selected, selectedId, selectedRoom }: Props) {
                 delete (r as any).__roomClickHandler;
             });
         };
-    }, [handleRoomClick]);
+    }, [handleRoomClick, floorId]);
 
     return (
         <>
-            {floorId === '0eg' && <SVGeg />}
-            {floorId === '1og' && <SVG1og />}
-            {floorId === '2og' && <SVG2og />}
-            {floorId === '3og' && <SVG3og />}
-            {floorId === '4og' && <SVG4og />}
+            {floorId === '0eg' && <SVGeg key="0eg" />}
+            {floorId === '1og' && <SVG1og key="1og" />}
+            {floorId === '2og' && <SVG2og key="2og" />}
+            {floorId === '3og' && <SVG3og key="3og" />}
+            {floorId === '4og' && <SVG4og key="4og" />}
         </>
     )
 }

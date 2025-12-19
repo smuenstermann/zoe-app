@@ -2,7 +2,6 @@ import React, { useCallback, useState, useEffect, useRef } from 'react'
 import VirtualKeyboard from './VirtualKeyboard'
 import '../assets/tabs.css'
 import findPath from '@renderer/scripts/dijkstra'
-import { drawPath } from '@renderer/scripts/dijkstra'
 
 
 type Props = {
