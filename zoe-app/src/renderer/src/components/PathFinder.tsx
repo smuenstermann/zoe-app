@@ -1,3 +1,4 @@
+
 import React, { useCallback, useEffect } from 'react'
 import findPath from '@renderer/scripts/dijkstra'
 import SVG2og from './SVG2og'
@@ -12,6 +13,7 @@ type Props = {
     selectedId?: string
     selectedRoom?: string
 }
+
 
 export default function Svg({ selected, selectedId, selectedRoom }: Props) {
 

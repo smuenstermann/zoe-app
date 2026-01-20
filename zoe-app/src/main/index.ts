@@ -64,7 +64,6 @@
  * @packageDocumentation
  */
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { execFile, exec } from 'child_process'
 // Load environment variables from .env in development / local runs
 try {
   // eslint-disable-next-line @typescript-eslint/no-var-requires

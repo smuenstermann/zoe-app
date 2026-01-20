@@ -60,7 +60,7 @@ export default function Calendar() {
                 __rawStart: startTs,
                 date: startTs ? startTs.toLocaleDateString() : '',
                 time: startTs ? startTs.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '',
-                title: r.title || r.name || r.room_name || '',
+                title: r.title || '',
                 description: r.description || '',
                 room: r.name || r.room || ''
               }
